@@ -4,7 +4,7 @@
 class Vector2
 {
 public:
-	Vector2();
+	Vector2() = default;
 	Vector2(const Vector2& v);
 	Vector2(float px, float py);
 
@@ -16,12 +16,32 @@ public:
 	//向量点乘
 	Vector2 operator+(const Vector2& v) const;
 	Vector2 operator-(const Vector2& v) const;
-	Vector2 operator-();
+	Vector2 operator-() const; //相反向量
 
 	//向量与标量乘
+	Vector2 operator*(float p) const;
+	Vector2 operator/(float p) const;
+	Vector2& operator+=(float p);
+	Vector2& operator-=(float p);
+	Vector2& operator*=(float p);
+	Vector2& operator/=(float p);
+	Vector2& operator+=(const Vector2& v);
+	Vector2& operator-=(const Vector2& v);
 
+	//置为0向量
+	void zero();
+	//标准化向量
+	void normalize();
 
+	//向量模长
+	inline float Length(){ return sqrtf(*this | *this); }
+
+	//向量距离
+	static float sDistance(const Vector2& a, const Vector2& b);
+	static Vector2 sLeap(const Vector2& a, const Vector2& b, float p);
 public:
 	float x, y;
-private:
 };
+
+//标量左乘
+Vector2 operator*(float p, const Vector2& v);
