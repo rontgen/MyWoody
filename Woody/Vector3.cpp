@@ -12,8 +12,13 @@ Vector3::Vector3(const Vector3& v)
     ,z(v.z)
 {}
 
-Vector3& Vector3::operator=(const Vector3 v)
-{}
+Vector3& Vector3::operator=(const Vector3& v)
+{
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
+}
 
 bool Vector3::operator==(const Vector3& v) const
 {
@@ -55,21 +60,23 @@ Vector3 Vector3::operator/(float p) const
     return Vector3(x*oneOverP, y*oneOverP, z*oneOverP);
 }
 
-Vector3& Vector3::operator*=(const Vector3& v)
+Vector3& Vector3::operator*=(float p)
 {
-    x *= v.x;
-    y *= v.y;
-    z *= v.z;
+    x *= p;
+    y *= p;
+    z *= p;
     return *this;
 }
 
-Vector3& Vector3::operator/=(const Vector3& v)
+Vector3& Vector3::operator/=(float p)
 {
-    x /= v.x;
-    y /= v.y;
-    z /= v.z;
+    float inv = 1.f / p;
+    x *= inv;
+    y *= inv;
+    z *= inv;
     return *this;
 }
+
 
 Vector3& Vector3::operator+=(const Vector3& v)
 {

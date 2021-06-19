@@ -27,10 +27,9 @@ public:
 	//向量与标量乘
 	Vector2 operator*(float p) const;
 	Vector2 operator/(float p) const;
-	Vector2& operator+=(float p);
-	Vector2& operator-=(float p);
 	Vector2& operator*=(float p);
 	Vector2& operator/=(float p);
+
 	Vector2& operator+=(const Vector2& v);
 	Vector2& operator-=(const Vector2& v);
 
