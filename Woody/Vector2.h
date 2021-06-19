@@ -1,3 +1,9 @@
+/**
+* Author:gwang
+* Date: 2021-06-19
+* Description: provide common function for Vector2
+*/
+
 #pragma once
 #include "MathToolkit.h"
 
@@ -13,12 +19,12 @@ public:
 	bool operator!=(const Vector2& v) const;
 	float operator|(const Vector2& v) const;
 
-	//ÏòÁ¿µã³Ë
+	//å‘é‡ç‚¹ä¹˜
 	Vector2 operator+(const Vector2& v) const;
 	Vector2 operator-(const Vector2& v) const;
-	Vector2 operator-() const; //Ïà·´ÏòÁ¿
+	Vector2 operator-() const; //ç›¸åå‘é‡
 
-	//ÏòÁ¿Óë±êÁ¿³Ë
+	//å‘é‡ä¸æ ‡é‡ä¹˜
 	Vector2 operator*(float p) const;
 	Vector2 operator/(float p) const;
 	Vector2& operator+=(float p);
@@ -28,20 +34,20 @@ public:
 	Vector2& operator+=(const Vector2& v);
 	Vector2& operator-=(const Vector2& v);
 
-	//ÖÃÎª0ÏòÁ¿
+	//ç½®ä¸º0å‘é‡
 	void zero();
-	//±ê×¼»¯ÏòÁ¿
+	//æ ‡å‡†åŒ–å‘é‡
 	void normalize();
 
-	//ÏòÁ¿Ä£³¤
+	//å‘é‡æ¨¡é•¿
 	inline float Length(){ return sqrtf(*this | *this); }
 
-	//ÏòÁ¿¾àÀë
+	//å‘é‡è·ç¦»
 	static float sDistance(const Vector2& a, const Vector2& b);
 	static Vector2 sLeap(const Vector2& a, const Vector2& b, float p);
 public:
 	float x, y;
 };
 
-//±êÁ¿×ó³Ë
+//æ ‡é‡å·¦ä¹˜
 Vector2 operator*(float p, const Vector2& v);

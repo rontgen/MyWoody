@@ -31,7 +31,7 @@ float Vector2::operator|(const Vector2& v) const
 	return x * v.x + y * v.y;
 }
 
-//向量点乘
+//鍚戦噺鐐逛箻
 Vector2 Vector2::operator+(const Vector2& v) const
 {
 	return Vector2(x + v.x, y + v.y);
@@ -47,14 +47,13 @@ Vector2 Vector2::operator-() const
 	return Vector2(-x, -y);
 }
 
-//向量与标量乘
+//鍚戦噺涓庢爣閲忎箻
 Vector2 Vector2::operator*(float p) const
 {
 	return Vector2(x*p, y*p);
 }
 Vector2 Vector2::operator/(float p) const
 {
-	static const float b = 0.000001f;
 	//TODO:check 0
 	float oneOverP = 1.f / p;
 	return Vector2(x *oneOverP, y *oneOverP);
@@ -104,9 +103,8 @@ void Vector2::zero()
 
 void Vector2::normalize()
 {
-	static const float b = 0.0000001f;
 	float len = this->Length();
-	if (len-0.f > b)
+	if (len-0.f > sfFloatZeroCheck)
 	{
 		float invLen = 1.f / len;
 		x *= invLen;
@@ -125,4 +123,9 @@ float Vector2::sDistance(const Vector2& a, const Vector2& b)
 Vector2 Vector2::sLeap(const Vector2& a, const Vector2& b, float p)
 {
 	return LinearInterpolate<Vector2, float>(a, b, p);
+}
+
+Vector2 operator*(float p, const Vector2& v)
+{
+	return Vector2(p * v.x, p * v.y);
 }
