@@ -1,9 +1,10 @@
 #include <iostream>
-#include "SDL.h"
+#include <SDL.h>
+#include<SDL_image.h>
 
 using namespace std;
 
-int main(int argc, char *argv[]) //main函数必须要有参数
+int main(int argc, char *argv[]) //main鍑芥暟蹇呴』瑕佹湁鍙傛暟
 {
 	SDL_Window *pWindow = NULL;
 	SDL_Init(SDL_INIT_VIDEO);
