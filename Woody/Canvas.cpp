@@ -119,5 +119,8 @@ void Canvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3)
  */
 Vector3 Canvas::getBarycentricCoord(const Vector2& v1, const Vector2& v2, const Vector2& v3, const Vector2& p)
 {
-    //float u =()
+    float u = ((v2.y - v3.y)*p.x + (v3.x - v2.x)*p.y + v2.x*v3.y - v3.x*v2.y) / ((v2.y - v3.y)*v1.x + (v3.x - v2.x)*v1.y + v2.x*v3.y - v3.x*v2.y);
+    float v = ((v1.y - v3.y)*p.x + (v3.x - v1.x)*p.y + v1.x*v3.y - v3.x*v1.y) / ((v1.y - v3.y)*v2.x + (v3.x - v1.x)*v2.y + v1.x*v3.y - v3.x*v1.y);
+    float w = 1 - u - v;
+    return Vector3(u, v, w);
 }
