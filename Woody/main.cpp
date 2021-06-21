@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include<SDL_image.h>
 
-
+#include "MyCanvas.h"
 
 using std::cout;
 using std::endl;
@@ -13,7 +13,7 @@ using std::string;
 const int WINDOW_WIDTH = 1024;
 const int WINDOW_HEIGHT = 640;
 
-SDL_Texture* loadTexture(string path);
+//SDL_Texture* loadTexture(string path);
 SDL_Window* gWindow = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 SDL_Texture* gTexture = nullptr;
@@ -33,7 +33,40 @@ int main(int argc, char *argv[]) //main函数必须要有参数
     }
     else
     {
+        gRenderTarget = SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WINDOW_WIDTH, WINDOW_HEIGHT);
+        MyCanvas* pCan = new MyCanvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+        vertex triangle[3];
+        triangle[0].p = Vector2(512.f, 100.f);
+        triangle[1].p = Vector2(128.f, 480.f);
+        triangle[2].p = Vector2(896.f, 480.f);
+        triangle[0].c = Color(1.f, 0.f, 0.f);
+        triangle[1].c = Color(0.f, 1.f, 0.f);
+        triangle[2].c = Color(0.f, 0.f, 1.f);
+
+        UINT8 uQuit = 1;
+        while (uQuit)
+        {
+            SDL_Event event;
+            while (SDL_PollEvent(&event))
+            {
+                if (event.type == SDL_QUIT)
+                {
+                    uQuit = 0;
+                }
+            }
+
+            pCan->drawPrimitive(triangle[0], triangle[1], triangle[2]);
+            SDL_RenderClear(gRenderer);
+            void* mPixels;
+            int pitch = 0;
+            SDL_LockTexture(gRenderTarget, nullptr, &mPixels, &pitch);
+            memcpy(mPixels, pCan->pixelData, pCan->w * 4 * pCan->h);
+            SDL_UnlockTexture(gRenderTarget);
+            SDL_RenderCopy(gRenderer, gRenderTarget, nullptr, &pCan->rect);
+
+            SDL_RenderPresent(gRenderer);
+        }
     }
 
     cout << "Window Create Success" << endl;

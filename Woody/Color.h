@@ -15,7 +15,7 @@ public:
 	float fr, fg, fb, fa;
 public:
 	Color();
-	Color(float r, float g, float b, float a);
+	Color(float r, float g, float b, float a=1.f);
 	Color(const Color& c);
 	Color(UINT32 c);
 

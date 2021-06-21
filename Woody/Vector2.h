@@ -33,7 +33,7 @@ public:
     Vector2& operator+=(const Vector2& v);
     Vector2& operator-=(const Vector2& v);
 
-    //标准化向量
+
     void normalize();
     //置为0向量
     void zero();

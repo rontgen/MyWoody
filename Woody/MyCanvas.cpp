@@ -1,17 +1,6 @@
-#include "Canvas.h"
+#include "MyCanvas.h"
 
-Canvas::Canvas(int pw, int ph)
-    :w(pw)
-    ,h(ph)
-{
-    pixelData = new UINT32[w*h];
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = w;
-    rect.h = h;
-}
-
-Canvas::~Canvas()
+MyCanvas::~MyCanvas()
 {
     if (pixelData)
     {
@@ -20,7 +9,7 @@ Canvas::~Canvas()
     }
 }
 
-void Canvas::drawPixel(const Color& c, int x, int y)
+void MyCanvas::drawPixel(const Color& c, int x, int y)
 {
     if (x>=0 && x<w && y>=0 && y<h)
     {
@@ -28,7 +17,7 @@ void Canvas::drawPixel(const Color& c, int x, int y)
     }
 }
 
-void Canvas::drawLine(const Color& c, int sx, int sy, int ex, int ey)
+void MyCanvas::drawLine(const Color& c, int sx, int sy, int ex, int ey)
 {
     //startPos=endPos
     if (sx == ex && sy == ey)
@@ -98,7 +87,7 @@ void Canvas::drawLine(const Color& c, int sx, int sy, int ex, int ey)
     }
 }
 
-void Canvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3)
+void MyCanvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3)
 {
     for (int i=0;i<h;++i)
     {
@@ -112,12 +101,13 @@ void Canvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3)
         }
     }
 }
+
 /*   i  j   k
  *  v1.x    v1.y    v1.z
  *  v2.x    v2.y    v2.z
  *  v3.x    v3.y    v3.z
  */
-Vector3 Canvas::getBarycentricCoord(const Vector2& v1, const Vector2& v2, const Vector2& v3, const Vector2& p)
+Vector3 MyCanvas::getBarycentricCoord(const Vector2& v1, const Vector2& v2, const Vector2& v3, const Vector2& p)
 {
     float u = ((v2.y - v3.y)*p.x + (v3.x - v2.x)*p.y + v2.x*v3.y - v3.x*v2.y) / ((v2.y - v3.y)*v1.x + (v3.x - v2.x)*v1.y + v2.x*v3.y - v3.x*v2.y);
     float v = ((v1.y - v3.y)*p.x + (v3.x - v1.x)*p.y + v1.x*v3.y - v3.x*v1.y) / ((v1.y - v3.y)*v2.x + (v3.x - v1.x)*v2.y + v1.x*v3.y - v3.x*v1.y);

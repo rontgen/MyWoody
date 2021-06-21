@@ -1,7 +1,7 @@
 /**
 * Author:gwang
 * Date: 2021-06-19
-* Description: provide common function for Canvas
+* Description: provide common function for MyCanvas
 */
 
 #pragma once
@@ -11,21 +11,29 @@
 #include "Color.h"
 #include "Vector3.h"
 
-struct vertex
-{
-    Vector2 p;
-    Color c;
-};
 
+struct vertex;
 
-class Canvas
+class MyCanvas
 {
 public:
-    Canvas(int pw, int ph);
-    ~Canvas();
+    MyCanvas(int pw, int ph)
+        :w(pw)
+        , h(ph)
+    {
+        pixelData = new UINT32[w*h];
+        rect.x = 0;
+        rect.y = 0;
+        rect.w = w;
+        rect.h = h;
+    }
+
+    ~MyCanvas();
+    void drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3);
+
     void drawPixel(const Color& c, int x, int y);
     void drawLine(const Color& c, int sx, int sy, int ex, int ey);
-    void drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3);
+
     
     static Vector3 getBarycentricCoord(const Vector2& v1, const Vector2& v2, const Vector2& v3, const Vector2& p);
 public:
@@ -35,4 +43,10 @@ public:
     //height
     int h;
     SDL_Rect rect;
+};
+
+struct vertex
+{
+    Vector2 p;
+    Color c;
 };
