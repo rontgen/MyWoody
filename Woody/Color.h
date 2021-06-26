@@ -18,7 +18,7 @@ public:
     Color(float r, float g, float b, float a=1.f);
     Color(const Color& c);
     Color& operator=(const Color& c);
-   explicit Color(UINT32 c);
+    explicit Color(UINT32 c);
 
     Color operator*(const Color& c) const;
     Color operator*(float a) const;

@@ -24,10 +24,7 @@ Color::Color()
     , fb(0.f)
     , fa(1.f)
 {
-    ur = static_cast<UINT8>(fr * 255);
-    ug = static_cast<UINT8>(fg * 255);
-    ub = static_cast<UINT8>(fb * 255);
-    ua = static_cast<UINT8>(fa * 255);
+    initUint8(fr, fg, fb, fa);
 }
 
 Color::Color(float r, float g, float b, float a)
@@ -36,10 +33,7 @@ Color::Color(float r, float g, float b, float a)
     ,fb(b)
     ,fa(a)
 {
-    ur = static_cast<UINT8>(r * 255);
-    ug = static_cast<UINT8>(g * 255);
-    ub = static_cast<UINT8>(b * 255);
-    ua = static_cast<UINT8>(a * 255);
+    initUint8(fr, fg, fb, fa);
 }
 
 Color::Color(const Color& c)
@@ -75,11 +69,7 @@ Color::Color(UINT32 c)
     ub = c >> 8 & 0xFF;
     ua = c & 0xFF;
 
-    float oneOver255 = (float)(1.f / 255.f);
-    fr = ur * oneOver255;
-    fg = ug * oneOver255;
-    fb = ub * oneOver255;
-    fa = ua * oneOver255;
+    initFloat(ur, ug, ub, ua);
 }
 
 Color Color::operator*(const Color& c) const
