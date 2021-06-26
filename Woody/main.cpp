@@ -37,12 +37,12 @@ int main(int argc, char *argv[]) //main函数必须要有参数
         MyCanvas* pCan = new MyCanvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         vertex triangle[3];
-        triangle[0].p = Vector2(512.f, 100.f);
-        triangle[1].p = Vector2(128.f, 480.f);
-        triangle[2].p = Vector2(896.f, 480.f);
-        triangle[0].c = Color(1.f, 0.f, 0.f);
-        triangle[1].c = Color(0.f, 1.f, 0.f);
-        triangle[2].c = Color(0.f, 0.f, 1.f);
+        triangle[0].p = Vector2(512, 100);
+        triangle[1].p = Vector2(128, 480);
+        triangle[2].p = Vector2(896, 480);
+        triangle[0].c = Color(1.0f, 0.0f, 0.0f);
+        triangle[1].c = Color(0.0f, 1.0f, 0.0f);
+        triangle[2].c = Color(0.0f, 0.0f, 1.0f);
 
         UINT8 uQuit = 1;
         while (uQuit)
@@ -57,12 +57,14 @@ int main(int argc, char *argv[]) //main函数必须要有参数
             }
 
             pCan->drawPrimitive(triangle[0], triangle[1], triangle[2]);
+
             SDL_RenderClear(gRenderer);
             void* mPixels;
             int pitch = 0;
             SDL_LockTexture(gRenderTarget, nullptr, &mPixels, &pitch);
             memcpy(mPixels, pCan->pixelData, pCan->w * 4 * pCan->h);
             SDL_UnlockTexture(gRenderTarget);
+
             SDL_RenderCopy(gRenderer, gRenderTarget, nullptr, &pCan->rect);
 
             SDL_RenderPresent(gRenderer);
@@ -100,7 +102,7 @@ bool init()
             } 
             else
             {
-                SDL_SetRenderDrawColor(gRenderer, 0x29, 0x6A, 0x54, 0xFF);
+                SDL_SetRenderDrawColor(gRenderer, 0x29, 0x6F, 0x58, 0xFF);
                 int imgFlag = IMG_INIT_PNG;
                 if (!(IMG_Init(imgFlag) & imgFlag))
                 {

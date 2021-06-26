@@ -11,7 +11,7 @@ MyCanvas::~MyCanvas()
 
 void MyCanvas::drawPixel(const Color& c, int x, int y)
 {
-    if (x>=0 && x<w && y>=0 && y<h)
+    if (0 <= x && x < w && 0 <= y && y < h)
     {
         pixelData[x + y * w] = c.toUint32();
     }
@@ -89,14 +89,18 @@ void MyCanvas::drawLine(const Color& c, int sx, int sy, int ex, int ey)
 
 void MyCanvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v3)
 {
-    for (int i=0;i<h;++i)
+    for (int i = 0; i < h; i++)
     {
-        for (int j=0;j<w; ++j)
+        for (int j = 0; j < w; j++)
         {
-            Vector3 baryCoord = getBarycentricCoord(v1.p, v2.p, v3.p, Vector2(j,i));
-            if (baryCoord.x>=0 && baryCoord.x<=1 &&baryCoord.y>=0 && baryCoord.y<=1 && baryCoord.z>=0 && baryCoord.z<=1)
+            Vector3  BaryCoord = getBarycentricCoord(v1.p, v2.p, v3.p, Vector2(j, i));
+            if (BaryCoord.x >= 0 && BaryCoord.x <= 1 && BaryCoord.y >= 0 && BaryCoord.y <= 1 && BaryCoord.z >= 0 && BaryCoord.z <= 1)
             {
-                drawPixel(v1.c *baryCoord.x + v2.c*baryCoord.y + v3.c*baryCoord.z, j, i);
+                auto tmpC1 = v1.c * BaryCoord.x;
+                auto tmpC2 = v2.c * BaryCoord.y;
+                auto tmpC3 = v3.c * BaryCoord.z;
+                auto tmpC = tmpC1 + tmpC2 + tmpC3;
+                drawPixel(tmpC, j, i);
             }
         }
     }
@@ -109,8 +113,8 @@ void MyCanvas::drawPrimitive(const vertex& v1, const vertex& v2, const vertex& v
  */
 Vector3 MyCanvas::getBarycentricCoord(const Vector2& v1, const Vector2& v2, const Vector2& v3, const Vector2& p)
 {
-    float u = ((v2.y - v3.y)*p.x + (v3.x - v2.x)*p.y + v2.x*v3.y - v3.x*v2.y) / ((v2.y - v3.y)*v1.x + (v3.x - v2.x)*v1.y + v2.x*v3.y - v3.x*v2.y);
-    float v = ((v1.y - v3.y)*p.x + (v3.x - v1.x)*p.y + v1.x*v3.y - v3.x*v1.y) / ((v1.y - v3.y)*v2.x + (v3.x - v1.x)*v2.y + v1.x*v3.y - v3.x*v1.y);
+    float u = ((v2.y - v3.y) * p.x + (v3.x - v2.x) * p.y + (v2.x * v3.y - v3.x * v2.y)) / ((v2.y - v3.y) * v1.x + (v3.x - v2.x) * v1.y + (v2.x * v3.y - v3.x * v2.y));
+    float v = ((v1.y - v3.y) * p.x + (v3.x - v1.x) * p.y + (v1.x * v3.y - v3.x * v1.y)) / ((v1.y - v3.y) * v2.x + (v3.x - v1.x) * v2.y + (v1.x * v3.y - v3.x * v1.y));
     float w = 1 - u - v;
     return Vector3(u, v, w);
 }
