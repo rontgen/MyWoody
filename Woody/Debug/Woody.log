@@ -1,2 +1,6 @@
 ﻿  Color.cpp
+  MyCanvas.cpp
+e:\new_start\mywoody\woody\mycanvas.cpp(96): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+  main.cpp
+  正在生成代码...
   Woody.vcxproj -> E:\new_start\MyWoody\Woody\Debug\Woody.exe
